@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Flask Lab Project</title>
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+  <main class="container">
+    <h1>Flask Lab Project</h1>
+    <p>Routes: <code>/</code> | <code>/health</code> | <code>/data (POST)</code></p>
+
+    <section>
+      <h2>Send JSON to /data</h2>
+      <form id="dataForm">
+        <input id="payload" placeholder='{"foo":"bar"}' />
+        <button type="submit">Send</button>
+      </form>
+      <pre id="response"></pre>
+    </section>
+  </main>
+
+  <script>
+    document.getElementById('dataForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const txt = document.getElementById('payload').value || '{}';
+      let obj;
+      try { obj = JSON.parse(txt); } catch { obj = {}; }
+      const res = await fetch('/data', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(obj)
+      });
+      const json = await res.json().catch(() => ({}));
+      document.getElementById('response').textContent = JSON.stringify({status:res.status, body: json}, null, 2);
+    });
+  </script>
+</body>
+</html>
