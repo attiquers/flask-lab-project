@@ -9,7 +9,7 @@ def home():
         return render_template('index.html')
     except Exception:
         return jsonify({
-            'message': 'Welcome to Flask Lab Project',
+            'message': 'Meow Welcome to Flask Lab Project',
             'routes': ['/', '/health', '/data']
         })
 
