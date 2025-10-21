@@ -1,8 +1,10 @@
+# .github/workflows/ci-cd.yml
 name: CI/CD
 
 on:
   push:
     branches: [ main ]
+  workflow_dispatch:   # allows manual runs from the Actions UI
 
 jobs:
   test:
